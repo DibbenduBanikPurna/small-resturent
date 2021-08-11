@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React, { createContext, useState } from 'react';
 import './App.css';
+import Menu from './Components/Gallery/Menu';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  
+} from "react-router-dom";
+import CardDetail from './Components/CartDetail/CardDetail';
+
+export const userContext=createContext()
 
 function App() {
+  const [info,setInfo]=useState([])
+  //console.log(info)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Switch>
+          <userContext.Provider value={[info,setInfo]}>
+          <Route exact path="/"><Menu/></Route>
+          <Route path="/cart/detail"><CardDetail/></Route>
+          </userContext.Provider>
+        </Switch>
+      </Router>
+     
+     
     </div>
   );
 }
